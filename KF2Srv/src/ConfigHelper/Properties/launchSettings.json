@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ConfigHelper": {
+      "commandName": "Project",
+      "commandLineArgs": "\"https://raw.githubusercontent.com/frutmonkey/kf2_MoonFangOfCrispJustice/master/Server.Config\" \"accesscode\""
+    }
+  }
+}
