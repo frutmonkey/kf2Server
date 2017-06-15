@@ -6,7 +6,7 @@ RUN dpkg --add-architecture i386 && \
 WORKDIR /
 
 ADD kf2_functions.sh /kf2_functions.sh 
-ADD main /containerMain
+ADD containerMain /main
 
 # Steam port
 EXPOSE 20560/udp
