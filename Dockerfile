@@ -5,7 +5,8 @@ RUN dpkg --add-architecture i386 && \
 
 WORKDIR /
 
-RUN mkdir -p downloads && \ 
+RUN mkdir -p downloads && \
+    mkdir -p /kf2/kf2server/ && \ 
     wget http://media.steampowered.com/installer/steamcmd.zip -P downloads && \
     unzip -o downloads/steamcmd.zip && \
     WINEDEBUG=fixme-all wine steamcmd.exe +exit
@@ -13,7 +14,7 @@ RUN mkdir -p downloads && \
 RUN WINEDEBUG=fixme-all \
     wine steamcmd.exe \
         +login anonymous \
-        +force_install_dir ./kf2server \
+        +force_install_dir /kf2/kf2server \
         +app_update 232130 validate \
         +exit
 
@@ -22,10 +23,9 @@ RUN wget http://www.redorchestra2.fr/downloads/KF2_WineDLL.zip -P downloads && \
     unzip -o $OLDPWD/downloads/KF2_WineDLL.zip && \
     winetricks -q vcrun2010 & sleep 30
 
-	
-
 ADD kf2_functions.sh /kf2_functions.sh 
 ADD containerMain /main
+ADD FileCache/kf2server /kf2/kf2server/
 
 # Steam port
 EXPOSE 20560/udp

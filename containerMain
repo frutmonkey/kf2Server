@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd /
-mkdir -p /kf2/kf2server/
+#mkdir -p /kf2/kf2server/
 export HOME=/kf2
 source kf2_functions.sh
 
@@ -10,6 +10,6 @@ require_steamcmd
 require_kf2
 require_dlls
 update
-require_config
+#require_config
 load_config
 launch
