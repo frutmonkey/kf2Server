@@ -1,42 +1,33 @@
 FROM ubuntu:xenial
 
-RUN apt-get -y update && apt-get -y install wget lib32gcc1 xfonts-scalable
+RUN apt-get update && apt-get install -y apt-transport-https ca-certificates
+
+RUN sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
+
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
+
+RUN apt-get update && apt-get -y install wget lib32gcc1 dotnet-dev-1.0.4
 
 RUN useradd -m steam
 
 WORKDIR /home/steam
 USER steam
 
-ADD https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz downloads
-
-RUN downloads/steamcmd.sh +exit || true
-
-RUN mkdir -p kf2server && \
-    downloads/steamcmd.sh \
-        +login anonymous \
-        +force_install_dir ./kf2server \
-        +app_update 232130 validate \
-        +exit
-
-RUN ls Steam
-RUN ls downloads
-
-
-#ADD kf2_functions.sh kf2_functions.sh 
-ADD containerMain main
-
-#ADD FileCache/DefaultConfig/ ./kf2server/KFGame/Config/
+ADD kf2_functions.sh kf2_functions.sh 
+ADD containerMain main 
+ADD KF2Srv/bin/Debug/netcoreapp1.0 ConfigEdit
 
 # Steam port
-#EXPOSE 20560/udp
+EXPOSE 20560/udp
 
 # Query port - used to communicate with the master server
-#EXPOSE 27015/udp
+EXPOSE 27015/udp
 
 # Game port - primary comms with players
-#EXPOSE 7777/udp
+EXPOSE 7777/udp
 
 # Web Admin port
-#EXPOSE 8080/tcp
+EXPOSE 8080/tcp
 
 CMD ["/bin/bash", "main"]
+

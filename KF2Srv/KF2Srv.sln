@@ -1,16 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D236D427-BC80-4B3C-A46D-39AE89AA7F90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{40C3AFB0-61B7-448F-A471-1F1EC94847CE}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ConfigHelper", "src\ConfigHelper\ConfigHelper.xproj", "{62F958DB-ED05-4F05-9D92-1A9004746C6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigHelper", "src\ConfigHelper\ConfigHelper.csproj", "{62F958DB-ED05-4F05-9D92-1A9004746C6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

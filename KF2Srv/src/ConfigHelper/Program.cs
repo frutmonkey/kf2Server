@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net.Http;
 using System.IO;
 using System.Text;
@@ -18,9 +17,10 @@ namespace ConfigHelper
             //arg 2 admin Access
             string addminAccess = args[1];
 
-            string configRoot = @"C:\Users\walter\Documents\KF2Stuff\KF2Srv\src\ConfigHelper\bin\Debug\netcoreapp1.0\kf2\kf2server\KFGame\Config\";
+            string configRoot = args[2];
+            //string configRoot = @"C:\Users\walter\Documents\KF2Stuff\KF2Srv\src\ConfigHelper\bin\Debug\netcoreapp1.0\kf2\kf2server\KFGame\Config\";
             //string configRoot = @".\kf2\kf2server\KFGame\Config\";
-            //Dictionary<string, Dictionary<string, string>>  = new Dictionary<string, Dictionary<string, string>>(); 
+
             string rawWebTxt;
             int workingIndex;
 
