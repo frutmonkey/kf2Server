@@ -15,7 +15,7 @@ USER steam
 
 ADD kf2_functions.sh kf2_functions.sh 
 ADD containerMain main 
-ADD KF2Srv/bin/Debug/netcoreapp1.0 ConfigEdit
+ADD KF2Srv/bin/Debug/netcoreapp1.0/ ConfigEdit
 
 # Steam port
 EXPOSE 20560/udp

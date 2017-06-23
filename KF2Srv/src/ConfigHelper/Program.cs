@@ -9,9 +9,12 @@ namespace ConfigHelper
 {
     public class Program
     {
+        private const string KFEngine = "LinuxServer-KFEngine.ini";
+        private const string KFGame = "LinuxServer-KFEngine.ini";
+        private const string KFWeb = "KFWeb.ini";
         public static void Main(string[] args)
         {
-
+            WriteLog("ConfigEdit Starting");
             //arg 1 web address
             string configLoc = args[0].Trim();
             //arg 2 admin Access
@@ -31,10 +34,11 @@ namespace ConfigHelper
                 }
             else
                 rawWebTxt = File.ReadAllText(configLoc);
+            WriteLog("Downloaded Requested Config");
 
-            var engine = new List<string>(File.ReadAllLines(Path.Combine(configRoot, "PCServer-KFEngine.ini")));
-            var game = new List<string>(File.ReadAllLines(Path.Combine(configRoot, "PCServer-KFGame.ini")));
-            var web = new List<string>(File.ReadAllLines(Path.Combine(configRoot, "KFWeb.ini")));
+            var engine = new List<string>(File.ReadAllLines(Path.Combine(configRoot, KFEngine)));
+            var game = new List<string>(File.ReadAllLines(Path.Combine(configRoot, KFGame)));
+            var web = new List<string>(File.ReadAllLines(Path.Combine(configRoot, KFWeb)));
 
             var configArr = rawWebTxt.Split('\n');
 
@@ -42,6 +46,7 @@ namespace ConfigHelper
             var commonConfig = new Dictionary<string, string>();
 
             commonConfig.Add("AdminPassword", addminAccess);
+            WriteLog("Loaded existing files");
 
             //pull out config
             for (int i = 0; i < configArr.Length; i++)
@@ -119,7 +124,7 @@ namespace ConfigHelper
                         game[IndexOf("Engine.GameReplicationInfo", "ShortName", game)] = $"ShortName={value}";
                         break;
                     case "WebAdmin":
-                        game[IndexOf("IpDrv.WebServer", "bEnabled", web)] = $"bEnabled={value}";
+                        web[IndexOf("IpDrv.WebServer", "bEnabled", web)] = $"bEnabled={value}";
                         break;
                     case "CanPause":
                         game[IndexOf("Engine.GameInfo", "bAdminCanPause", game)] = $"bAdminCanPause={value}";
@@ -193,10 +198,14 @@ namespace ConfigHelper
 
             game[workingIndex] = activeMapps.ToString();
 
+            WriteLog("Config Changes made");
+
             //write out finished files
-            File.WriteAllLines(Path.Combine(configRoot, "PCServer-KFEngine.ini"), engine);
-            File.WriteAllLines(Path.Combine(configRoot, "PCServer-KFGame.ini"), game);
-            File.WriteAllLines(Path.Combine(configRoot, "KFWeb.ini"), web);
+            File.WriteAllLines(Path.Combine(configRoot, KFEngine), engine);
+            File.WriteAllLines(Path.Combine(configRoot, KFGame), game);
+            File.WriteAllLines(Path.Combine(configRoot, KFWeb), web);
+            WriteLog("Config Changes saved");
+            WriteLog("Application Complete");
         }//end main
 
         static void ExpandAllMapps(System.IO.DirectoryInfo root, List<System.IO.FileInfo> list)
@@ -223,12 +232,18 @@ namespace ConfigHelper
                         }
                     }
             }
+            WriteLog($"Section{section} option{option} does not exist");
             return -1;
         }
 
         static bool IsSection(string text)
         {
             return text.StartsWith("[") && text.EndsWith("]");
+        }
+
+        public static void WriteLog(string line)
+        {
+            Console.WriteLine(line);
         }
     }
 }
